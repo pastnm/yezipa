@@ -21,11 +21,11 @@ trap 'rm -rf -- "$work_dir"' EXIT
 site_dir="$work_dir/site"
 mkdir -p "$site_dir"
 
-shopt -s nullglob
-packages=(debs/*.deb)
-shopt -u nullglob
+shopt -s nullglob globstar
+packages=(debs/**/*.deb)
+shopt -u nullglob globstar
 
-# Running from the root keeps each Filename relative: debs/<file>.deb.
+# Running from the root keeps Filename relative, including architecture folders.
 if ((${#packages[@]} > 0)); then
   apt-ftparchive packages debs > "$work_dir/Packages"
 else
@@ -66,8 +66,10 @@ apt-ftparchive \
   release "$work_dir/indexes" > "$work_dir/Release"
 
 if ((${#packages[@]} > 0)); then
-  mkdir -p "$site_dir/debs"
-  cp "${packages[@]}" "$site_dir/debs/"
+  for package in "${packages[@]}"; do
+    mkdir -p "$site_dir/$(dirname "$package")"
+    cp "$package" "$site_dir/$package"
+  done
 fi
 for file in index.html CydiaIcon.png sileo-featured.json; do
   if [[ -f "$file" ]]; then

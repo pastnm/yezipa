@@ -1,7 +1,12 @@
 # Packages
 
-Put one `.deb` per package version here, named
-`<Package>_<Version>_<Architecture>.deb`, and push.
+Put one `.deb` per package version in the matching architecture folder:
+
+- `arm64/`: `Architecture: iphoneos-arm64` (rootless).
+- `arm64e/`: `Architecture: iphoneos-arm64e` (roothide).
+
+Name it `<Package>_<Version>_<Architecture>.deb`, and push.
+The index includes both folders and preserves their download paths.
 
 Each package's control file needs these fields:
 

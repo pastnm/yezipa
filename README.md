@@ -6,7 +6,8 @@ Add `https://pastnm.github.io/yezipa/` in Irisin.
 
 ## How it works
 
-- Packages are the `.deb` files in `debs/`, named
+- Packages are the `.deb` files in `debs/arm64/` (rootless) and
+  `debs/arm64e/` (roothide), named
   `<Package>_<Version>_<Architecture>.deb`. Apelin's Distribute… page
   publishes a release build here; a `.deb` pushed by hand works the same.
 - On every push to `main`, `.github/workflows/update-repository.yml` runs
